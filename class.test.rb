@@ -57,4 +57,13 @@ class Test
       puts "\e[31mError: #{e}\e[0m"
     end
   end
+  def expect passed, msg = "Value was not what was expected", success = "Test Passed"
+    if passed
+      @passes += 1
+      puts "\e[32m#{success}\e[0m"
+    else
+      @fails += 1
+      puts "\e[31m#{msg}\e[0m"
+    end
+  end
 end
