@@ -41,8 +41,6 @@ class Test
     puts "Process took #{dur}ms to complete"
     sleep 1
     puts "\e[1mThank you for using RubyTester :D\e[22m"
-    80.times do
-      print "#"
-    end
+    puts "#" * 80
   end
 end
