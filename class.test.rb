@@ -66,4 +66,8 @@ class Test
       puts "\e[31m#{msg}\e[0m"
     end
   end
+  def assert_equals actual, expected, msg = "Actual value did not match expected", success = "Test Passed"
+    self.expect actual == expected, msg + " - Expected: " + expected.to_s + ", but instead got: " + actual.to_s, success + " - Value == " + expected.to_s
+  end
+  # TODO: Define assert_not_equals
 end
