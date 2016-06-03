@@ -28,8 +28,13 @@ class Test
     puts "-" * 80
     puts "\e[1mDescribe: #{msg}\e[22m"
     start = Time.now
-    # TODO: Use a try-catch block and execute the block passed in as argument
-    dur = (Time.now - start) * 1000
+    begin
+      yield
+    rescue Exception => e
+      @errors += 1
+      puts "\e[31mError: #{e}\e[0m";
+    end
+    dur = ((Time.now - start) * 1000).round
     puts "-" * 80
     sleep 1
     puts "\e[32m#{@passes} Passed\e[0m"
