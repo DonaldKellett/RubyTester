@@ -32,7 +32,7 @@ class Test
       yield
     rescue Exception => e
       @errors += 1
-      puts "\e[31mError: #{e}\e[0m";
+      puts "\e[31mError: #{e}\e[0m"
     end
     dur = ((Time.now - start) * 1000).round
     puts "-" * 80
@@ -47,5 +47,14 @@ class Test
     sleep 1
     puts "\e[1mThank you for using RubyTester :D\e[22m"
     puts "#" * 80
+  end
+  def it msg, &block
+    puts "\e[1mIt: #{msg}\e[22m"
+    begin
+      yield
+    rescue Exception => e
+      @errors += 1
+      puts "\e[31mError: #{e}\e[0m"
+    end
   end
 end
