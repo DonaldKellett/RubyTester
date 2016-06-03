@@ -19,7 +19,7 @@ class Test
     @passes = 0
     @fails = 0
     @errors = 0
-    print "Parameters set - ready to execute tests in 3"
+    print "Tests will execute in 3"
     sleep 1
     print " 2"
     sleep 1
@@ -69,5 +69,7 @@ class Test
   def assert_equals actual, expected, msg = "Actual value did not match expected", success = "Test Passed"
     self.expect actual == expected, msg + " - Expected: " + expected.to_s + ", but instead got: " + actual.to_s, success + " - Value == " + expected.to_s
   end
-  # TODO: Define assert_not_equals
+  def assert_not_equals actual, unexpected, msg = "Unexpected value returned", success = "Test Passed"
+    self.expect actual != unexpected, msg + " - Value was expected to not equal: " + unexpected.to_s, success + " - Value != " + unexpected.to_s
+  end
 end
