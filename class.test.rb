@@ -81,4 +81,15 @@ class Test
     end
     self.expect error_thrown, msg
   end
+  def expect_no_error msg, &block
+    error_thrown = false
+    error_msg = "Error"
+    begin
+      yield
+    rescue Exception => e
+      error_thrown = true
+      error_msg = e
+    end
+    self.expect !error_thrown, "#{msg} - #{e}"
+  end
 end

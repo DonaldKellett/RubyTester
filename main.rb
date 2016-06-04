@@ -76,4 +76,25 @@ test.describe "RubyTester" do
       puts "3 + 2 equals " + (3 + 2).to_s
     end
   end
+  test.it "should have a working 'expect_no_error' method" do
+    # Passing Tests
+    test.expect_no_error "Expected error was not thrown" do
+      100000.times do |i|
+        puts i
+      end
+    end
+    test.expect_no_error "Expected error was not thrown" do
+      puts "3 + 2 equals " + (3 + 2).to_s
+    end
+    # Failing Tests
+    test.expect_no_error "Unexpected error thrown" do
+      100000.times do
+        puts "Hello World"
+        puts "3 + 2 equals " + (3 + 2)
+      end
+    end
+    test.expect_no_error "Unexpected error thrown" do
+      puts "abcdefghijklmnopqrstuvwxyz".to_a
+    end
+  end
 end
