@@ -92,4 +92,7 @@ class Test
     end
     self.expect !error_thrown, "#{msg} - #{e}"
   end
+  def random_number
+    rand 101
+  end
 end

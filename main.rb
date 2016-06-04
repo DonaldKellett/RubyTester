@@ -2,6 +2,7 @@ require_relative "class.test"
 
 test = Test.new
 
+=begin
 test.describe "RubyTester" do
   test.it "should have a working 'assert_equals' method" do
     # Passing Tests with Default Message
@@ -95,6 +96,17 @@ test.describe "RubyTester" do
     end
     test.expect_no_error "Unexpected error thrown" do
       puts "abcdefghijklmnopqrstuvwxyz".to_a
+    end
+  end
+end
+=end
+
+test.describe "RubyTester" do
+  test.it "should have a working random_number method" do
+    50000.times do
+      rand_num = test.random_number
+      puts rand_num
+      test.expect rand_num >= 0 && rand_num <= 100
     end
   end
 end
