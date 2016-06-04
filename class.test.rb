@@ -95,4 +95,12 @@ class Test
   def random_number
     rand 101
   end
+  def random_token length = 10
+    token_chars = "abcdefghijklmnopqrstuvwxyz0123456789".split ""
+    token = ""
+    length.times do
+      token += token_chars[(36 * rand).floor]
+    end
+    token
+  end
 end

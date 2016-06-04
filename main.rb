@@ -109,4 +109,31 @@ test.describe "RubyTester" do
       test.expect rand_num >= 0 && rand_num <= 100
     end
   end
+  test.it "should have a working 'random_token' method" do
+    10000.times do
+      rand_str = test.random_token
+      puts rand_str
+      test.expect rand_str.length == 10
+    end
+    10000.times do
+      rand_str = test.random_token 1
+      puts rand_str
+      test.expect rand_str.length == 1
+    end
+    10000.times do
+      rand_str = test.random_token 5
+      puts rand_str
+      test.expect rand_str.length == 5
+    end
+    10000.times do
+      rand_str = test.random_token 20
+      puts rand_str
+      test.expect rand_str.length == 20
+    end
+    10000.times do
+      rand_str = test.random_token 50
+      puts rand_str
+      test.expect rand_str.length == 50
+    end
+  end
 end
