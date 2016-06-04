@@ -117,3 +117,68 @@ test.assert_not_equals actual, unexpected[, msg[, success]]
 #### Description
 
 Basically the opposite of `test.assert_equals`.  Passes the test if `actual != unexpected` and fails otherwise.
+
+### expect_error
+
+#### Syntax
+
+```ruby
+test.expect_error msg, &block
+```
+
+#### Description
+
+`test.expect_error` expects exactly 2 arguments, the first one being `msg` (the message displayed to the user upon a failed test) and the second argument being a `&block` to be executed and checked for errors.  The test passes if the code in the block throws an error and fails otherwise.
+
+e.g.
+
+```ruby
+test.expect_error "Expected error was not thrown" do
+  puts "3 + 2 equals " + (3 + 2) # Cannot implicitly convert FixNum into String - Test Passed
+end
+test.expect_error "Expected error was not thrown" do
+  puts "3 + 2 equals " + (3 + 2).to_s # No error is thrown so the test fails
+end
+```
+
+### expect_no_error
+
+#### Syntax
+
+```ruby
+test.expect_no_error msg, &block
+```
+
+#### Description
+
+Basically the opposite of `test.expect_error` - the test passes if **no** errors are thrown from the block being executed and fails otherwise.
+
+## Miscellaneous
+
+### random_number
+
+#### Syntax
+
+```ruby
+test.random_number # e.g. 43
+```
+
+#### Description
+
+Returns a random integer from `0` to `100` (both inclusive).  Accepts no arguments.
+
+### random_token
+
+#### Syntax
+
+```ruby
+test.random_token [length] # e.g. k34mncj7u0
+```
+
+#### Description
+
+Returns a randomly generated string consisting of only lowercase letters and/or digits.  Optionally accepts an argument `length` which specifies the length of the random string (token) to be generated.  If not specified then the default string length is `10`.
+
+### A note regarding arrays and hashes
+
+As of `v1.0.0`, the direct comparison of arrays and hashes are not supported yet.  For example, if you want to compare an array to an expected (array) result you may want to perform multiple tests, e.g. test for its length before comparing the array elements one by one.
