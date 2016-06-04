@@ -71,4 +71,14 @@ class Test
   def assert_not_equals actual, unexpected, msg = "Unexpected value returned", success = "Test Passed"
     self.expect actual != unexpected, msg + " - Value was expected to not equal: " + unexpected.to_s, success + " - Value != " + unexpected.to_s
   end
+  def expect_error msg, &block
+    error_thrown = false
+    begin
+      yield
+    rescue Exception => e
+      error_thrown = true
+      puts "Expected error thrown: #{e}"
+    end
+    self.expect error_thrown, msg
+  end
 end

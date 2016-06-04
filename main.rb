@@ -55,4 +55,25 @@ test.describe "RubyTester" do
     test.assert_not_equals false, false, "Miss :p"
     test.assert_not_equals "Hello World", "Hello World", "Miss :p"
   end
+  test.it "should have a working 'expect_error' method" do
+    # Passing Tests
+    test.expect_error "Expected error was not thrown" do
+      100000.times do
+        puts "Hello World"
+        puts "3 + 2 equals " + (3 + 2)
+      end
+    end
+    test.expect_error "Expected error was not thrown" do
+      puts "abcdefghijklmnopqrstuvwxyz".to_a
+    end
+    # Failing Tests
+    test.expect_error "Expected error was not thrown" do
+      100000.times do |i|
+        puts i
+      end
+    end
+    test.expect_error "Expected error was not thrown" do
+      puts "3 + 2 equals " + (3 + 2).to_s
+    end
+  end
 end
