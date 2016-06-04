@@ -1,5 +1,4 @@
 class Test
-  attr_accessor :passes, :fails, :errors
   def initialize
     @passes = 0
     @fails = 0
