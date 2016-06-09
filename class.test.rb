@@ -11,7 +11,7 @@ class Test
     end
     puts "\e[1mRubyTester\e[22m"
     sleep 1
-    puts "\e[1mv1.0.0\e[22m"
+    puts "\e[1mv1.0.1\e[22m"
     sleep 1
     puts "\e[1mAuthored by DonaldKellett\e[22m (https://github.com/DonaldKellett)"
     sleep 1
@@ -102,5 +102,14 @@ class Test
       token += token_chars[(36 * rand).floor]
     end
     token
+  end
+  def randomize array
+    copy = array.map { |e| e }
+    (2 * copy.length).times do
+      i = rand copy.length
+      j = rand copy.length
+      copy[i], copy[j] = copy[j], copy[i]
+    end
+    copy
   end
 end

@@ -136,4 +136,12 @@ test.describe "RubyTester" do
       test.expect rand_str.length == 50
     end
   end
+  test.it "should have a working \"randomize\" method that does not mutate the original array" do
+    original = (0...10).to_a
+    puts "Original Array: #{original}"
+    100.times do
+      puts "Randomized Array: #{test.randomize original}"
+    end
+    puts "Original Array: #{original}"
+  end
 end

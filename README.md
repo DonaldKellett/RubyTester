@@ -4,6 +4,12 @@
 
 A simple, custom Ruby TDD framework that requires minimal setup and executes in the command line.  Open Source
 
+## Version Details
+
+- Current Version: `v1.0.1`
+- Status: Stable and Production Ready
+- License: None (Public Domain)
+
 ## Initialization
 
 In order to initialize the RubyTester and start using it to write your Ruby test cases, simply follow the instructions below:
@@ -180,6 +186,18 @@ test.random_token [length] # e.g. k34mncj7u0
 #### Description
 
 Returns a randomly generated string consisting of only lowercase letters and/or digits.  Optionally accepts an argument `length` which specifies the length of the random string (token) to be generated.  If not specified then the default string length is `10`.
+
+### randomize (`v1.0.1`+)
+
+#### Syntax
+
+```ruby
+test.randomize array
+```
+
+#### Description
+
+Expects an `array` as its only argument and returns a new array with the order of the elements randomized.  Does not mutate the original array.
 
 ### A note regarding arrays and hashes
 
