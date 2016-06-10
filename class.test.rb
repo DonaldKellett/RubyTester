@@ -121,4 +121,28 @@ class Test
     end
     copy
   end
+
+  protected
+  def check_similar actual, expected
+    return actual == expected if (!actual.is_a? Array and !actual.is_a? Hash) or (!expected.is_a? Array and !expected.is_a? Hash)
+    if actual.is_a? Array and expected.is_a? Array
+      actual.length.times do |i|
+        return false unless self.check_similar actual[i], expected[i]
+      end
+      expected.length.times do |i|
+        return false unless self.check_similar actual[i], expected[i]
+      end
+      return true
+    end
+    if actual.is_a? Hash and expected.is_a? Hash
+      for k, v in actual
+        return false unless self.check_similar actual[k], expected[k]
+      end
+      for k, v in expected
+        return false unless self.check_similar actual[k], expected[k]
+      end
+      return true
+    end
+    false
+  end
 end

@@ -106,6 +106,7 @@ test.describe "RubyTester" do
 end
 =end
 
+=begin
 test.describe "RubyTester" do
   test.it "should have a working random_number method" do
     50000.times do
@@ -148,5 +149,221 @@ test.describe "RubyTester" do
       puts "Randomized Array: #{test.randomize original}"
     end
     puts "Original Array: #{original}"
+  end
+end
+=end
+
+test.describe "RubyTester" do
+  test.it "should have a working (protected) \"check_similar\" method" do
+    # Primitives
+    test.expect(test.check_similar nil, nil)
+    test.expect(test.check_similar true, true)
+    test.expect(test.check_similar false, false)
+    test.expect(test.check_similar 1, 1)
+    test.expect(test.check_similar 0, 0)
+    test.expect(test.check_similar Math::PI, Math::PI)
+    test.expect(test.check_similar Math::E, Math::E)
+    test.expect(test.check_similar "Hello World", "Hello World")
+    test.expect(test.check_similar "bacon", "bacon")
+    test.expect(!test.check_similar(true, false))
+    test.expect(!test.check_similar(false, true))
+    test.expect(!test.check_similar(1, 0))
+    test.expect(!test.check_similar(0, 1))
+    test.expect(!test.check_similar(Math::PI, Math::E))
+    test.expect(!test.check_similar(Math::E, Math::PI))
+    test.expect(!test.check_similar("Hello World", "hello world"))
+    test.expect(!test.check_similar("hello world", "Hello World"))
+    test.expect(!test.check_similar("Hello World", "bacon"))
+    test.expect(!test.check_similar("bacon", "Hello World"))
+    test.expect(!test.check_similar(true, 1))
+    test.expect(!test.check_similar(1, true))
+    test.expect(!test.check_similar(false, 0))
+    test.expect(!test.check_similar(0, false))
+    # Arrays
+    test.expect(!test.check_similar([1], 1))
+    test.expect(!test.check_similar(1, [1]))
+    test.expect(!test.check_similar("Hello World", ['H','e','l','l','o',' ','W','o','r','l','d']))
+    test.expect(!test.check_similar(['H','e','l','l','o',' ','W','o','r','l','d'], "Hello World"))
+    test.expect(test.check_similar [], [])
+    test.expect(test.check_similar [1, 2, 3, 4, 5], [1, 2, 3, 4, 5])
+    test.expect(test.check_similar ["Hello", "World", "bacon", "is", "delicious"], ["Hello", "World", "bacon", "is", "delicious"])
+    test.expect(test.check_similar (1..100).to_a, (1..100).to_a)
+    test.expect(test.check_similar [], [])
+    test.expect(test.check_similar [[]], [[]])
+    test.expect(test.check_similar [[[]]], [[[]]])
+    test.expect(test.check_similar [[[[]]]], [[[[]]]])
+    test.expect(test.check_similar [[[[[]]]]], [[[[[]]]]])
+    test.expect(test.check_similar [[["Hello", "World", "bacon", "is", "delicious"]]], [[["Hello", "World", "bacon", "is", "delicious"]]])
+    test.expect(test.check_similar [[[[["Hello", "World", "bacon", "is", "delicious"]]]]], [[[[["Hello", "World", "bacon", "is", "delicious"]]]]])
+    test.expect(test.check_similar [[[[[[[[[[["Hello", "World", "bacon", "is", "delicious"]]]]]]]]]]], [[[[[[[[[[["Hello", "World", "bacon", "is", "delicious"]]]]]]]]]]])
+    test.expect(test.check_similar [[1, 0, 0], [0, 1, 0], [0, 0, 1]], [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    test.expect(test.check_similar [[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    test.expect(test.check_similar [1, [2, [3, [4, [5]]]]], [1, [2, [3, [4, [5]]]]])
+    test.expect(test.check_similar [1, [2, [3, [4, [5], 6], 7], 8], 9], [1, [2, [3, [4, [5], 6], 7], 8], 9])
+    test.expect(!test.check_similar([1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6]))
+    test.expect(!test.check_similar([1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5]))
+    test.expect(!test.check_similar([1, 2, 3, 4, 5], [2, 4, 3, 5, 1]))
+    test.expect(!test.check_similar([2, 4, 3, 5, 1], [1, 2, 3, 4, 5]))
+    test.expect(!test.check_similar(["Hello", "World", "bacon", "is", "delicious"], ["Hello", "World"]))
+    test.expect(!test.check_similar(["Hello", "World"], ["Hello", "World", "bacon", "is", "delicious"]))
+    test.expect(!test.check_similar([], [0]))
+    test.expect(!test.check_similar([0], []))
+    test.expect(!test.check_similar([[[[[]]]]], [[[[[false]]]]]))
+    test.expect(!test.check_similar([[[[[false]]]]], [[[[[]]]]]))
+    test.expect(!test.check_similar(["Hello", "World", "bacon", "is", "delicious"], [[[[[[[["Hello", "World", "bacon", "is", "delicious"]]]]]]]]))
+    test.expect(!test.check_similar([], [[]]))
+    test.expect(!test.check_similar([[]], []))
+    test.expect(!test.check_similar([[[[[]]]]], [[[[]]]]))
+    test.expect(!test.check_similar([[[[]]]], [[[[[]]]]]))
+    test.expect(!test.check_similar([[1, 0, 0], [0, 1, 0], [0, 0, 1]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+    test.expect(!test.check_similar([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 0, 0], [0, 1, 0], [0, 0, 1]]))
+    test.expect(!test.check_similar([1, [2, [3, [4, [5]]]]], [1, [2, [3, [4]]]]))
+    test.expect(!test.check_similar([1, [2, [3, [4]]]], [1, [2, [3, [4, [5]]]]]))
+    test.expect(!test.check_similar([1, [2, [3, [4, [5], 6], 7], 8], 9], [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+    test.expect(!test.check_similar([1, 2, 3, 4, 5, 6, 7, 8, 9], [1, [2, [3, [4, [5], 6], 7], 8], 9]))
+    # Hashes
+    test.expect(!test.check_similar(3, {"Hello" => 3}))
+    test.expect(!test.check_similar({"Hello" => 3}, 3))
+    test.expect(!test.check_similar(3, {:hello => 3}))
+    test.expect(!test.check_similar({:hello => 3}, 3))
+    test.expect(!test.check_similar(["Hello", "World"], {"Hello" => "World"}))
+    test.expect(!test.check_similar({"Hello" => "World"}, ["Hello", "World"]))
+    test.expect(!test.check_similar([:hello, "World"], {:hello => "World"}))
+    test.expect(!test.check_similar({:hello => "World"}, [:hello, "World"]))
+    test.expect(test.check_similar({"hello" => "world"}, {"hello" => "world"}))
+    test.expect(test.check_similar({:hello => "world"}, {:hello => "world"}))
+    test.expect(!test.check_similar({"hello" => "world"}, {:hello => "world"}))
+    test.expect(!test.check_similar({:hello => "world"}, {"hello" => "world"}))
+    test.expect(test.check_similar({:hello => :world}, {:hello => :world}))
+    test.expect(!test.check_similar({:hello => "world"}, {:hello => :world}))
+    test.expect(!test.check_similar({:hello => :world}, {:hello => "world"}))
+    test.expect(test.check_similar({"Hello" => "World", "bacon" => "delicious"}, {"bacon" => "delicious", "Hello" => "World"}))
+    test.expect(test.check_similar({}, {}))
+    test.expect(test.check_similar([[{}]], [[{}]]))
+    test.expect(test.check_similar({
+      "hello" => "world",
+      :hello => :world,
+      :bacon => ["Most", "delicious", "food", {
+        :on => "the planet",
+        :in => "the universe",
+        "within" => :multiverse,
+        "global rankings" => [100, 100, 99, 100, 3, 100, 100, 97, 100, 99, 100, 100, 100, 100, 100, 100, 100]
+      }],
+      "curry" => :also_delicious,
+      :pizza => :very_delicious_indeed,
+      "UFOs" => ["Very", ["Likely", "Unlikely"], {:impossible? => "I don't think so"}]
+    }, {
+      "hello" => "world",
+      :hello => :world,
+      :bacon => ["Most", "delicious", "food", {
+        :on => "the planet",
+        :in => "the universe",
+        "within" => :multiverse,
+        "global rankings" => [100, 100, 99, 100, 3, 100, 100, 97, 100, 99, 100, 100, 100, 100, 100, 100, 100]
+      }],
+      "curry" => :also_delicious,
+      :pizza => :very_delicious_indeed,
+      "UFOs" => ["Very", ["Likely", "Unlikely"], {:impossible? => "I don't think so"}]
+    }))
+    test.expect(!test.check_similar({
+      "hello" => "world",
+      :hello => :world,
+      :bacon => ["Most", "delicious", "food", {
+        :on => "the planet",
+        :in => "the universe",
+        "within" => :multiverse,
+        "global rankings" => [100, 100, 99, 100, 3, 100, 100, 97, 100, 99, 100, 100, 100, 100, 100, 100, 100]
+      }],
+      "curry" => :also_delicious,
+      :pizza => :very_delicious_indeed,
+      "UFOs" => ["Very", ["Likely", "Unlikely"], {:impossible? => "I don't think so"}]
+    }, {
+      "hello" => "world",
+      :hello => :world,
+      :bacon => ["Most", "delicious", "food", {
+        :on => "the planet",
+        :in => "the universe",
+        "within" => :multiverse,
+        "global rankings" => [100, 100, 99, 100, 100, 100, 97, 100, 99, 100, 100, 100, 100, 100, 100, 100]
+      }],
+      "curry" => :also_delicious,
+      :pizza => :very_delicious_indeed,
+      "UFOs" => ["Very", ["Likely", "Unlikely"], {:impossible? => "I don't think so"}]
+    }))
+    test.expect(!test.check_similar({
+      "hello" => "world",
+      :hello => :world,
+      :bacon => ["Most", "delicious", "food", {
+        :on => "the planet",
+        :in => "the universe",
+        "within" => :multiverse,
+        "global rankings" => [100, 100, 99, 100, 100, 100, 97, 100, 99, 100, 100, 100, 100, 100, 100, 100]
+      }],
+      "curry" => :also_delicious,
+      :pizza => :very_delicious_indeed,
+      "UFOs" => ["Very", ["Likely", "Unlikely"], {:impossible? => "I don't think so"}]
+    }, {
+      "hello" => "world",
+      :hello => :world,
+      :bacon => ["Most", "delicious", "food", {
+        :on => "the planet",
+        :in => "the universe",
+        "within" => :multiverse,
+        "global rankings" => [100, 100, 99, 100, 3, 100, 100, 97, 100, 99, 100, 100, 100, 100, 100, 100, 100]
+      }],
+      "curry" => :also_delicious,
+      :pizza => :very_delicious_indeed,
+      "UFOs" => ["Very", ["Likely", "Unlikely"], {:impossible? => "I don't think so"}]
+    }))
+    test.expect(!test.check_similar({
+      "hello" => "world",
+      :hello => :world,
+      :bacon => ["Most", "delicious", "food", {
+        :on => "the planet",
+        :in => "the universe",
+        "within" => :multiverse,
+        "global rankings" => [100, 100, 99, 100, 3, 100, 100, 97, 100, 99, 100, 100, 100, 100, 100, 100, 100]
+      }],
+      "curry" => :also_delicious,
+      :pizza => :very_delicious_indeed,
+      "UFOs" => ["Very", ["Likely", "Unlikely"], {:impossible? => "I don't think so"}]
+    }, {
+      "hello" => "world",
+      :hello => :world,
+      :bacon => ["Most", "delicious", "food", {
+        :on => "the planet",
+        :in => "the universe",
+        "within" => :multiverse,
+        "global rankings" => [100, 100, 99, 100, 100, 100, 97, 100, 99, 100, 100, 100, 100, 100, 100, 100, 3]
+      }],
+      "curry" => :also_delicious,
+      :pizza => :very_delicious_indeed,
+      "UFOs" => ["Very", ["Likely", "Unlikely"], {:impossible? => "I don't think so"}]
+    }))
+    test.expect(!test.check_similar({
+      "hello" => "world",
+      :hello => :world,
+      :bacon => ["Most", "delicious", "food", {
+        :on => "the planet",
+        :in => "the universe",
+        "within" => :multiverse,
+        "global rankings" => [100, 100, 99, 100, 100, 100, 97, 100, 99, 100, 100, 100, 100, 100, 100, 100, 3]
+      }],
+      "curry" => :also_delicious,
+      :pizza => :very_delicious_indeed,
+      "UFOs" => ["Very", ["Likely", "Unlikely"], {:impossible? => "I don't think so"}]
+    }, {
+      "hello" => "world",
+      :hello => :world,
+      :bacon => ["Most", "delicious", "food", {
+        :on => "the planet",
+        :in => "the universe",
+        "within" => :multiverse,
+        "global rankings" => [100, 100, 99, 100, 3, 100, 100, 97, 100, 99, 100, 100, 100, 100, 100, 100, 100]
+      }],
+      "curry" => :also_delicious,
+      :pizza => :very_delicious_indeed,
+      "UFOs" => ["Very", ["Likely", "Unlikely"], {:impossible? => "I don't think so"}]
+    }))
   end
 end
