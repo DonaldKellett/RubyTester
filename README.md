@@ -2,13 +2,13 @@
 
 [![Join the chat at https://gitter.im/DonaldKellett/RubyTester](https://badges.gitter.im/DonaldKellett/RubyTester.svg)](https://gitter.im/DonaldKellett/RubyTester?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-A simple, custom Ruby TDD framework that requires minimal setup and executes in the command line.  Open Source
+A simple, custom Ruby TDD framework that requires minimal setup and executes in the command line.  MIT Licensed
 
 ## Version Details
 
-- Current Version: `v1.0.1`
+- Current Version: `v1.0.2`
 - Status: Stable and Production Ready
-- License: None (Public Domain)
+- License: **MIT License**
 
 ## Initialization
 
