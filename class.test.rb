@@ -1,3 +1,10 @@
+=begin
+  RubyTester
+  v1.0.2
+  (c) Donald Sebastian Leung.  All rights reserved.
+  MIT Licensed
+=end
+
 class Test
   def initialize
     @passes = 0
@@ -14,6 +21,8 @@ class Test
     puts "\e[1mv1.0.2\e[22m"
     sleep 1
     puts "\e[1mAuthored by DonaldKellett\e[22m (https://github.com/DonaldKellett)"
+    sleep 1
+    puts "\e[1mMIT Licensed\e[22m"
     sleep 1
     @passes = 0
     @fails = 0

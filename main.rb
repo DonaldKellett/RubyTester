@@ -1,3 +1,8 @@
+=begin
+  RubyTester Demo
+  For the actual testing framework please refer to `class.test.rb`
+=end
+
 require_relative "class.test"
 
 test = Test.new
