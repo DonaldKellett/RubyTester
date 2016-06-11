@@ -80,6 +80,12 @@ class Test
   def assert_not_equals actual, unexpected, msg = "Unexpected value returned", success = "Test Passed"
     self.expect actual != unexpected, msg + " - Value was expected to not equal: " + unexpected.to_s, success + " - Value != " + unexpected.to_s
   end
+  def assert_similar actual, expected, msg = "Actual value did not match expected", success = "Test Passed"
+    self.expect self.check_similar(actual, expected), msg + " - Expected: " + expected.to_s + ", but instead got: " + actual.to_s, success + " - Value == " + expected.to_s
+  end
+  def assert_not_similar actual, unexpected, msg = "Unexpected value returned", success = "Test Passed"
+    self.expect !self.check_similar(actual, unexpected), msg + " - Value was expected to not equal: " + unexpected.to_s, success + " - Value != " + unexpected.to_s
+  end
   def expect_error msg, &block
     error_thrown = false
     begin

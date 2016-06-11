@@ -7,7 +7,6 @@ require_relative "class.test"
 
 test = Test.new
 
-=begin
 test.describe "RubyTester" do
   test.it "should have a working 'assert_equals' method" do
     # Passing Tests with Default Message
@@ -103,8 +102,179 @@ test.describe "RubyTester" do
       puts "abcdefghijklmnopqrstuvwxyz".to_a
     end
   end
+  test.it "should have a working \"assert_similar\" method" do
+    # Passing Tests
+    test.assert_similar [], []
+    test.assert_similar (1..1000).to_a, (1..1000).to_a
+    test.assert_similar({"hello" => "world", :bacon => "is delicious"}, {"hello" => "world", :bacon => "is delicious"})
+    test.assert_similar({:array => [2, 4, 6, 8, 10], :hash => {:hello => :world}}, {:array => [2, 4, 6, 8, 10], :hash => {:hello => :world}})
+    test.assert_similar({
+      :multiple => {
+        :layers => {
+          :of => {
+            :nested => {
+              :hashes => {
+                :and => {
+                  :arrays => [
+                    [1, 2, 3],
+                    [10, 30, 20],
+                    [1000, 1024, 666, [1, [2, [3, [4, [5, 6]]]]]]
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }, {
+      :multiple => {
+        :layers => {
+          :of => {
+            :nested => {
+              :hashes => {
+                :and => {
+                  :arrays => [
+                    [1, 2, 3],
+                    [10, 30, 20],
+                    [1000, 1024, 666, [1, [2, [3, [4, [5, 6]]]]]]
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+    # Failing Tests
+    test.assert_similar [], [[[]]]
+    test.assert_similar [[[]]], []
+    test.assert_similar({:hello => "world", :bacon => "delicious", :all_other_foods => "not so delicious"}, {:hello => "world", :all_other_foods => "not so delicious"})
+    test.assert_similar({:hello => "world", :all_other_foods => "not so delicious"}, {:hello => "world", :bacon => "delicious", :all_other_foods => "not so delicious"})
+    test.assert_similar({
+      :multiple => {
+        :layers => {
+          :of => {
+            :nested => {
+              :hashes => {
+                :and => {
+                  :arrays => [
+                    [1, 2, 3],
+                    [10, 30, 20],
+                    [1000, 1024, 666, [1, [2, [3, [4, [5, 6]]]]]]
+                  ], "and" => "another"
+                }
+              }
+            }
+          }
+        }
+      }
+    }, {
+      :multiple => {
+        :layers => {
+          :of => {
+            :nested => {
+              :hashes => {
+                :and => {
+                  :arrays => [
+                    [1, 2, 3],
+                    [10, 30, 20],
+                    [1000, 1024, 666, [1, [2, [3, [4, [5, 6]]]]]]
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+  end
+  test.it "should have a working \"assert_not_similar\" method" do
+    # Passing Tests
+    test.assert_not_similar [], [[[]]]
+    test.assert_not_similar [[[]]], []
+    test.assert_not_similar({:hello => "world", :bacon => "delicious", :all_other_foods => "not so delicious"}, {:hello => "world", :all_other_foods => "not so delicious"})
+    test.assert_not_similar({:hello => "world", :all_other_foods => "not so delicious"}, {:hello => "world", :bacon => "delicious", :all_other_foods => "not so delicious"})
+    test.assert_not_similar({
+      :multiple => {
+        :layers => {
+          :of => {
+            :nested => {
+              :hashes => {
+                :and => {
+                  :arrays => [
+                    [1, 2, 3],
+                    [10, 30, 20],
+                    [1000, 1024, 666, [1, [2, [3, [4, [5, 6]]]]]]
+                  ], "and" => "another"
+                }
+              }
+            }
+          }
+        }
+      }
+    }, {
+      :multiple => {
+        :layers => {
+          :of => {
+            :nested => {
+              :hashes => {
+                :and => {
+                  :arrays => [
+                    [1, 2, 3],
+                    [10, 30, 20],
+                    [1000, 1024, 666, [1, [2, [3, [4, [5, 6]]]]]]
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+    # Failing Tests
+    test.assert_not_similar [], []
+    test.assert_not_similar (1..1000).to_a, (1..1000).to_a
+    test.assert_not_similar({"hello" => "world", :bacon => "is delicious"}, {"hello" => "world", :bacon => "is delicious"})
+    test.assert_not_similar({:array => [2, 4, 6, 8, 10], :hash => {:hello => :world}}, {:array => [2, 4, 6, 8, 10], :hash => {:hello => :world}})
+    test.assert_not_similar({
+      :multiple => {
+        :layers => {
+          :of => {
+            :nested => {
+              :hashes => {
+                :and => {
+                  :arrays => [
+                    [1, 2, 3],
+                    [10, 30, 20],
+                    [1000, 1024, 666, [1, [2, [3, [4, [5, 6]]]]]]
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }, {
+      :multiple => {
+        :layers => {
+          :of => {
+            :nested => {
+              :hashes => {
+                :and => {
+                  :arrays => [
+                    [1, 2, 3],
+                    [10, 30, 20],
+                    [1000, 1024, 666, [1, [2, [3, [4, [5, 6]]]]]]
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+  end
 end
-=end
 
 =begin
 test.describe "RubyTester" do
@@ -153,6 +323,7 @@ test.describe "RubyTester" do
 end
 =end
 
+=begin
 test.describe "RubyTester" do
   test.it "should have a working (protected) \"check_similar\" method" do
     # Primitives
@@ -367,3 +538,4 @@ test.describe "RubyTester" do
     }))
   end
 end
+=end
