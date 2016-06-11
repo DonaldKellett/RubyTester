@@ -18,7 +18,7 @@ class Test
     end
     puts "\e[1mRubyTester\e[22m"
     sleep 1
-    puts "\e[1mv1.0.2\e[22m"
+    puts "\e[1mv1.1.0\e[22m"
     sleep 1
     puts "\e[1mAuthored by DonaldKellett\e[22m (https://github.com/DonaldKellett)"
     sleep 1

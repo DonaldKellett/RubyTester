@@ -6,7 +6,7 @@ A simple, custom Ruby TDD framework that requires minimal setup and executes in 
 
 ## Version Details
 
-- Current Version: `v1.0.2`
+- Current Version: `v1.1.0`
 - Status: Stable and Production Ready
 - License: **MIT License**
 
@@ -161,6 +161,30 @@ test.expect_no_error msg, &block
 
 Basically the opposite of `test.expect_error` - the test passes if **no** errors are thrown from the block being executed and fails otherwise.
 
+### assert_similar (`v1.1.0`+)
+
+#### Syntax
+
+```ruby
+test.assert_similar actual, expected[, msg[, success]]
+```
+
+#### Description
+
+Similar to `assert_equals` except it also works for **arrays and hashes** (at any level in terms of nesting) as well as primitives.
+
+### assert_not_similar (`v1.1.0`+)
+
+#### Syntax
+
+```ruby
+test.assert_not_similar actual, unexpected[, msg[, success]]
+```
+
+#### Description
+
+Similar to `assert_not_equals` except it also works for **arrays and hashes** (at any level in terms of nesting) as well as primitives.
+
 ## Miscellaneous
 
 ### random_number
@@ -198,7 +222,3 @@ test.randomize array
 #### Description
 
 Expects an `array` as its only argument and returns a new array with the order of the elements randomized.  Does not mutate the original array.
-
-### A note regarding arrays and hashes
-
-As of `v1.0.0`, the direct comparison of arrays and hashes are not supported yet.  For example, if you want to compare an array to an expected (array) result you may want to perform multiple tests, e.g. test for its length before comparing the array elements one by one.
